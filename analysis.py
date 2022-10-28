@@ -42,6 +42,10 @@ review_df_clean['reviews.doRecommend'].value_counts()
 from sklearn.model_selection import train_test_split
 
 
+#%%
+
+train_test_split(review_df_clean, train_size=0.7, stratify='reviews.doRecommend',
+                 random_state=0)
 
 
 
