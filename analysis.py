@@ -66,6 +66,11 @@ df_test, df_val = train_test_split(df_smallset, train_size=0.5, random_state=0)
 
 
 #%%
+from collections import Counter
+
+#%%
+
+word_counter = Counter()
 
 
 
