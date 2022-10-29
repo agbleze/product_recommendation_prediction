@@ -44,7 +44,7 @@ from sklearn.model_selection import train_test_split
 
 #%%
 
-df_train, df_test = train_test_split(review_df_clean, train_size=0.7, #stratify='reviews.doRecommend',
+df_train, df_smallset = train_test_split(review_df_clean, train_size=0.7, #stratify='reviews.doRecommend',
                  random_state=0)
 
 
@@ -58,10 +58,14 @@ df_train['reviews.doRecommend'].value_counts().plot(kind='bar')
 
 # %%
 
-df_test['reviews.doRecommend'].value_counts().plot(kind='bar')
+df_smallset['reviews.doRecommend'].value_counts().plot(kind='bar')
+
+#%%
+
+df_test, df_val = train_test_split(df_smallset, train_size=0.5, random_state=0)
 
 
-
+#%%
 
 
 
