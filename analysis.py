@@ -50,8 +50,19 @@ df_train, df_test = train_test_split(review_df_clean, train_size=0.7, #stratify=
 
 #%%
 
-
 df_train.info()
+
+#%%
+
+df_train['reviews.doRecommend'].value_counts().plot(kind='bar')
+
+# %%
+
+df_test['reviews.doRecommend'].value_counts().plot(kind='bar')
+
+
+
+
 
 
 
