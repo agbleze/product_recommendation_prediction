@@ -67,12 +67,30 @@ df_test, df_val = train_test_split(df_smallset, train_size=0.5, random_state=0)
 
 #%%
 from collections import Counter
+import string
 
 #%%
 
 word_counter = Counter()
 
-
+#%%
+for review in df_train['reviews.text']:
+    for text in review.split(" "):
+        if text not in string.punctuation:
+            word_counter[text] += 1
+            
+    
 
 
 # %%
+from nltk import tokenize, word_tokenize
+
+
+
+
+
+
+
+
+
+
