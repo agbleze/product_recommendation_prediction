@@ -135,8 +135,13 @@ indices = [add_token(begin_seq_token)]
 indices.extend(add_token(token) for token in 'I love the product'.split(" "))
 indices.append(add_token(end_seq_token))
 
+#%%
+vector_length = len(indices)
+outer_vector = np.zeros(vector_length)
 
-
+#%%
+outer_vector[:vector_length] = indices
+#outer_vector[vector_length] = add_token(mask_token)
 
 
 #%%
