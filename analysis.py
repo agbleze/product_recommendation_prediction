@@ -2,7 +2,9 @@
 #%%
 import os
 import pandas as pd
-
+from nltk import tokenize, word_tokenize
+from nltk.book import FreqDist
+import numpy as np
 
 # %%
 cwd_path = os.getcwd()
@@ -69,6 +71,8 @@ df_test, df_val = train_test_split(df_smallset, train_size=0.5, random_state=0)
 from collections import Counter
 import string
 
+
+
 #%%
 
 word_counter = Counter()
@@ -76,21 +80,94 @@ word_counter = Counter()
 #%%
 for review in df_train['reviews.text']:
     for text in review.split(" "):
-        if text not in string.punctuation:
+        text = text.lower()
+        if text not in string.punctuation and not text.isnumeric():
+            if text[-1] in string.punctuation:
+                text = text[:-1] 
             word_counter[text] += 1
             
-    
+#%%    
+wd = Counter()
+for w in text.split(" "):
+    word = word.lower()
+    if w not in string.punctuation:
+        if w[-1] in string.punctuation:#[',', '.']:
+            w = w[:-1]
+        wd[w] += 1
+print(wd)
+
+
+#%% token to index
+token_to_idx = {}
+
+for token in word_counter:
+    idx = len(token_to_idx)
+    token_to_idx[token] = idx
+
+#%% idx_to_token
+idx_to_token = {}
+
+for token, idx in token_to_idx.items():
+    idx_to_token[idx] = token
+
+#%%
+def add_token(token: str):
+    if token in token_to_idx:
+        idx = token_to_idx[token] 
+    else:
+        idx = len(token_to_idx)
+        token_to_idx[token] = idx
+        idx_to_token[idx] = token
+    return idx
+        
+#%%
+add_token('work')        
+        
+
+#%% provide constant for various token
+mask_token = "<MASK>"
+begin_seq_token = "<BEGIN>"
+end_seq_token = "<END>"
+unk_token = "<UNK>"
+
+#%%
+indices = [add_token(begin_seq_token)]
+indices.extend(add_token(token) for token in 'I love the product'.split(" "))
+indices.append(add_token(end_seq_token))
+
+
+
+
+
+#%%
+
+train_freq = FreqDist(df_train['reviews.text'])
+
+
+
+#%%
+text = 'Bought two for the. added comfort they. provide and. the wide straps. I am very pleased with my purchases and will probably order another two as they fit so well and provide full support.'
+
+for word in text.split(" "):
+    word = word.lower()
+    if word[-1] in [',', '.']:
+        word = word[:-1]
+    print(word)
+
+
+#%%
+wd = Counter()
+for w in text.split(" "):
+    word = word.lower()
+    if w not in string.punctuation:
+        if w[-1] in string.punctuation:#[',', '.']:
+            w = w[:-1]
+        wd[w] += 1
+print(wd)
+
+
+
+
 
 
 # %%
-from nltk import tokenize, word_tokenize
-
-
-
-
-
-
-
-
-
-
