@@ -1,5 +1,5 @@
 
-from typing import dict
+from typing import List, dict
 
 
 class ReviewVocabulary(object):
@@ -26,6 +26,10 @@ class ReviewVocabulary(object):
             self._token_to_idx[token] = idx
             self._idx_to_token[idx] = token
         return idx
+            
+    def add_tokens(self, tokens: List):
+        return [self.add_token(token) for token in tokens]
+        
             
     
     
