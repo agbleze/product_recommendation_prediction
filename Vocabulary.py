@@ -19,6 +19,9 @@ class ReviewVocabulary(object):
         return cls(**contents)
     
     
+class ReviewSequenceVocabulary(ReviewVocabulary):
+    def __init__(self,token_to_idx, unk_token: str = "<UNK>"):
+        super(self, ReviewSequenceVocabulary).__init__(token_to_idx)
         
         
         
