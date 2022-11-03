@@ -29,9 +29,13 @@ class ReviewVocabulary(object):
             
     def add_tokens(self, tokens: List):
         return [self.add_token(token) for token in tokens]
-        
-            
     
+    
+    def lookup_token(self, token):
+        return self._token_to_idx[token]
+    
+    
+        
     
 class ReviewSequenceVocabulary(ReviewVocabulary):
     def __init__(self, token_to_idx = None, unk_token: str = "<UNK>", mask_token: str = "<MASK>",
