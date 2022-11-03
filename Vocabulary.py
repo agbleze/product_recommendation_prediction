@@ -20,7 +20,8 @@ class ReviewVocabulary(object):
     
     
 class ReviewSequenceVocabulary(ReviewVocabulary):
-    def __init__(self,token_to_idx, unk_token: str = "<UNK>"):
+    def __init__(self, token_to_idx = None, unk_token: str = "<UNK>", mask_token: str = "<MASK>",
+                 begin_seq_token: str = "<BEGIN>", end_seq_token: str = "<END>"):
         super(self, ReviewSequenceVocabulary).__init__(token_to_idx)
         
         
