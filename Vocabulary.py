@@ -71,6 +71,11 @@ class ReviewSequenceVocabulary(ReviewVocabulary):
             return self._token_to_idx[token]
         
         
+    def to_serializable(self):
+        contents = super(self, ReviewSequenceVocabulary).to_serializable()
+        contents = contents.update()
+        
+        
         
         
         #indices = [self.add_token(token)]
