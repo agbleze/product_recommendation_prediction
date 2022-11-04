@@ -40,7 +40,11 @@ class ReviewVocabulary(object):
         else:
             raise KeyError(f"{index} is not in the Vocabulary")
         
+    def __str__(self):
+        return(f"ReviewVocabulary Size is {len(self)}")
     
+    def __len__(self):
+        return len(self._token_to_idx)
     
     
         
@@ -49,6 +53,8 @@ class ReviewSequenceVocabulary(ReviewVocabulary):
     def __init__(self, token_to_idx = None, unk_token: str = "<UNK>", mask_token: str = "<MASK>",
                  begin_seq_token: str = "<BEGIN>", end_seq_token: str = "<END>"):
         super(self, ReviewSequenceVocabulary).__init__(token_to_idx)
+        
+        
         
         
         
