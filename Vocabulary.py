@@ -31,8 +31,16 @@ class ReviewVocabulary(object):
         return [self.add_token(token) for token in tokens]
     
     
-    def lookup_token(self, token):
+    def lookup_token(self, token: str) -> int:
         return self._token_to_idx[token]
+    
+    def lookup_index(self, index: int) -> str:
+        if index in self._idx_to_token:
+            return self._idx_to_token[index]
+        else:
+            raise KeyError(f"{index} is not in the Vocabulary")
+        
+    
     
     
         
