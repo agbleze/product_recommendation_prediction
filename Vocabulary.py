@@ -62,6 +62,16 @@ class ReviewSequenceVocabulary(ReviewVocabulary):
         self.mask_index = self.add_token(self.mask_token)
         self.begin_seq_index = self.add_token(self.begin_seq_token)
         self.end_seq_index = self.add_token(self.end_seq_token)
+        self.unk_index = self.add_token(self.unk_token)
+        
+    def lookup_token(self, token: str) -> int:
+        if self.unk_index >= 0:
+            return self._token_to_idx.get(token, self.unk_index)
+        else:
+            return self._token_to_idx[token]
+        
+        
+        
         
         #indices = [self.add_token(token)]
         
