@@ -1,6 +1,7 @@
 
 from typing import List, dict
-
+from torch.utils.data import DataLoader, Dataset
+import numpy as np
 
 class ReviewVocabulary(object):
     """class for creating review vocabulary"""
@@ -71,15 +72,35 @@ class ReviewSequenceVocabulary(ReviewVocabulary):
             return self._token_to_idx[token]
         
         
-class ReviewDataset()
-        
-        
     def to_serializable(self):
         contents = super(self, ReviewSequenceVocabulary).to_serializable()
         contents = contents.update({'mask_token': self.mask_index,
                                     'unk_token': self.unk_token,
                                     'begin_seq_token': self.begin_seq_token,
                                     'end_seq_token': self.end_seq_token})
+        
+        
+        
+        
+
+class ReviewVectorizer:
+    def __init__(self, review_df):
+        self.review_df = review_df
+        
+        self.review_vocab = ReviewSequenceVocabulary()
+        self.recommend_vocab = ReviewSequenceVocabulary()
+        
+    def vectorize(self, review_vocab, vector_length = -1):
+        indices = [review_vocab.begin_seq_index]
+        indices = indices.extend(self.review_vocab.add_token(token) for token in review_vocab._token_to_idx)
+        indices = indices.append(review_vocab.mask_index)
+        
+        outer_vector = np
+        
+        
+        
+class ReviewDataset(Dataset):
+    pass
         
         
         
