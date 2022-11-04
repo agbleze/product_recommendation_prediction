@@ -54,6 +54,17 @@ class ReviewSequenceVocabulary(ReviewVocabulary):
                  begin_seq_token: str = "<BEGIN>", end_seq_token: str = "<END>"):
         super(self, ReviewSequenceVocabulary).__init__(token_to_idx)
         
+        self.mask_token = mask_token
+        self.begin_seq_token = begin_seq_token
+        self.end_seq_token = end_seq_token
+        self.unk_token = unk_token
+        
+        self.mask_index = self.add_token(self.mask_token)
+        self.begin_seq_index = self.add_token(self.begin_seq_token)
+        self.end_seq_index = self.add_token(self.end_seq_token)
+        
+        #indices = [self.add_token(token)]
+        
         
         
         
