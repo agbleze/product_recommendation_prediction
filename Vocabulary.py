@@ -106,7 +106,9 @@ class ReviewVectorizer:
     
     
     def from_dataframe(self):
-        pass
+        for row, text_column in self.review_df.iterrows():
+            for text in text_column['reviews.text'].split(" "):
+                review_vocab_token = self.self.review_vocab.add_token(text) 
         
         
         
