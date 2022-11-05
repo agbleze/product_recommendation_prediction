@@ -1,8 +1,16 @@
 from Vocabulary import ReviewSequenceVocabulary, ReviewVocabulary
 import numpy as np
 import pandas as pd
+import string
 
-
+def preprocess_text(sentence):
+    for text in sentence.split(" "):
+            text = text.lower()
+            if text not in string.punctuation and not text.isnumeric():
+                if text[-1] in string.punctuation:
+                    text = text[:-1]
+                return text
+    
 
 class ReviewVectorizer:
     def __init__(self, review_df):
@@ -11,9 +19,17 @@ class ReviewVectorizer:
         self.review_vocab = ReviewSequenceVocabulary()
         self.recommend_vocab = ReviewSequenceVocabulary()
         
-    def vectorize(self, vector_length = -1):
+    def vectorize(self, review_text, vector_length = -1):
+        text_list = []
+        for text in review_text.split(" "):
+            text = text.lower()
+            if text not in string.punctuation and not text.isnumeric():
+                if text[-1] in string.punctuation:
+                    text = text[:-1] 
+                text_list.append(text)
+        
         indices = [self.review_vocab.begin_seq_index]
-        indices = indices.extend(self.review_vocab.add_token(token) for token in self.review_vocab._token_to_idx)
+        indices = indices.extend(self.review_vocab.lookup_token(token) for token in self.review_vocab._token_to_idx)
         indices = indices.append(self.review_vocab.mask_index)
         
         if vector_length >= 0:
