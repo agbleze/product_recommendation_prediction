@@ -2,6 +2,8 @@
 from typing import List, dict
 from torch.utils.data import DataLoader, Dataset
 import numpy as np
+import pandas as pd
+
 
 class ReviewVocabulary(object):
     """class for creating review vocabulary"""
@@ -116,16 +118,3 @@ class ReviewVectorizer:
         return (self.review_vocab_token, self.recommend_vocab)
         
         
-class ReviewDataset(Dataset):
-    pass
-        
-        
-        
-        
-        #indices = [self.add_token(token)]
-        
-        
-        
-        
-        
-
