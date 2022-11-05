@@ -27,9 +27,7 @@ class ReviewDataset(Dataset):
                 'test_data': test_set,
                 'validate_data': validate_set
                 }
-        
-        
-    
+           
     
     def load_data_and_make_vectorizer(self):
         pass
