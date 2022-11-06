@@ -31,6 +31,7 @@ class ReviewDataset(Dataset):
     
     def load_data_and_make_vectorizer(self):
         self.train_df = self.split_set()['train_data']
+        review_vectorizer = ReviewVectorizer()
     
     def load_data_and_load_vectorizer(self):
         pass
