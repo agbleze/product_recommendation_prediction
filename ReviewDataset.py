@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
 import ReviewVectorizer
+from typing import Dict, List, Optional
 
 #review_Vec = ReviewVectorizer(review_df=review_df)
 
@@ -10,8 +11,9 @@ class ReviewDataset(Dataset):
     def __init__(self, dataset_path: str):
         
         self.dataset = pd.read_csv(dataset_path)
+        self.review_vectorizer = ReviewVectorizer(review_df=self.dataset)
         
-    def split_set(self, train_size: float = 0.7):
+    def split_set(self, train_size: float = 0.7) -> Dict:
         """TODO:
         1. set seed with np.
         2. split data into train and evalute with 70:30 ratio
@@ -27,11 +29,17 @@ class ReviewDataset(Dataset):
                 'test_data': test_set,
                 'validate_data': validate_set
                 }
+        
+    def lookup_datasplit(self, split='train_data'):
+        self.split = split
+        self.datasplit = self.split_set()[self.split]
+        self.datasplit_size = len(self.datasplit)
+        return (self.datasplit, self.datasplit_size)
            
     
     def load_data_and_make_vectorizer(self):
         self.train_df = self.split_set()['train_data']
-        self.review_vectorizer = ReviewVectorizer(review_df=self.dataset)
+        #self.review_vectorizer = ReviewVectorizer(review_df=self.dataset)
         review_vocab_token, recommend_vocab = self.review_vectorizer.from_dataframe()
         return (self.train_df, review_vocab_token)
     
@@ -45,16 +53,35 @@ class ReviewDataset(Dataset):
         return self.vectorizer 
     
     
-    def generate_batches(self, batch_size: int):
-        batch = dataloader(self.train_df, batch_size)
-        return batch 
+    def generate_batches(self, batch_size: int, drop_last=True, device='cpu'):
+        dataloader = DataLoader(dataset=self.train_df, batch_size=batch_size,
+                           shuffle=True, drop_last=drop_last)
+        
+        for data_dict in dataloader:
+            output_data_dict = {}
+            for name, tensor in data_dict.items():
+                output_data_dict[name] = data_dict[name].to(device)
+                
+        return output_data_dict
+         
     
-    def get_num_batch(self):
-        pass
+    def get_num_batch(self, batch_size: int):
+        len(self) // batch_size
+        
     
     def __getitem__(self, index):
-        return super().__getitem__(index)
+        self._train_df, self._train_df_size = self.lookup_datasplit()
         
+        row = self._train_df.iloc[index]
+        review_vector = self.review_vectorizer.vectorize(review_text=row['reviews.text'])
+        
+        recommend_index = self.review_vectorizer.recommend_vocab.lookup_token(row['reviews.doRecommend'])
+        return {'x_data': review_vector, 'y_target': recommend_index}
+    
+    
+    def __len__(self):
+        return self._train_df_size
+ 
         
         
         
