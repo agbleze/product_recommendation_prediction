@@ -35,6 +35,10 @@ class ReviewVectorizer:
         self.review_vocab = ReviewSequenceVocabulary()
         self.recommend_vocab = ReviewVocabulary()
         
+        tokenize_text = lambda content: content.split(" ")
+        self.max_seq_length = max(map(tokenize_text, self.review_df['reviews.text']))
+        
+        
     def vectorize(self, review_text, vector_length = -1):
         
         indices = [self.review_vocab.begin_seq_index]
