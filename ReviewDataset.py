@@ -4,12 +4,12 @@ import numpy as np
 from sklearn.model_selection import train_test_split
 import ReviewVectorizer
 
-
+#review_Vec = ReviewVectorizer(review_df=review_df)
 
 class ReviewDataset(Dataset):
-    def __init__(self, dataset: pd.DataFrame):
+    def __init__(self, dataset_path: str):
         
-        self.dataset = dataset
+        self.dataset = pd.read_csv(dataset_path)
         
     def split_set(self, train_size: float = 0.7):
         """TODO:
@@ -30,7 +30,7 @@ class ReviewDataset(Dataset):
            
     
     def load_data_and_make_vectorizer(self):
-        pass
+        self.train_df = self.split_set()['train_data']
     
     def load_data_and_load_vectorizer(self):
         pass
