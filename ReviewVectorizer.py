@@ -3,6 +3,7 @@ from Vocabulary import ReviewSequenceVocabulary, ReviewVocabulary
 import numpy as np
 import pandas as pd
 import string
+import json
 
 #%%
 def preprocess_texts_to_tokens(sentence):
@@ -49,13 +50,19 @@ class ReviewVectorizer:
     def get_vectorizer(self):
         return self.vectorize(vector_length=-1)
     
+    def save_vectorizer(self, filepath: str):
+        self.filepath = filepath
+        vectorizer = self.get_vectorizer()
+        json.dump(vectorizer, self.filepath)
+        
+    
     
     #@classmethod
     def from_dataframe(self):
         #cls.review_df = review_df
         for row, text_column in self.review_df.iterrows():
             for token in preprocess_texts_to_tokens(text_column['reviews.text']):
-                self.review_vocab_token = self.self.review_vocab.add_token(token) 
+                self.review_vocab_token = self.review_vocab.add_token(token) 
         
         for token in sorted(set(preprocess_texts_to_tokens(self.review_df['reviews.doRecommend']))):
             self.recommend_vocab.add_token(token)
