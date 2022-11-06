@@ -35,8 +35,8 @@ class ReviewVectorizer:
         self.review_vocab = ReviewSequenceVocabulary()
         self.recommend_vocab = ReviewVocabulary()
         
-        tokenize_text = lambda content: content.split(" ")
-        self.max_seq_length = max(map(tokenize_text, self.review_df['reviews.text']))
+        tokenize_text_length = lambda content: len(content.split(" "))
+        self._max_seq_length = max(map(tokenize_text_length, self.review_df['reviews.text'])) + 2
         
         
     def vectorize(self, review_text, vector_length = -1):
@@ -46,7 +46,7 @@ class ReviewVectorizer:
         indices = indices.append(self.review_vocab.mask_index)
         
         if vector_length >= 0:
-            outer_vector = np.empty(len(indices), dtype=np.int64)
+            outer_vector = np.empty(self._max_seq_length, dtype=np.int64)
             outer_vector[:len(indices)] = indices
             outer_vector[len(indices):] = self.review_vocab.mask_index
             return outer_vector
