@@ -31,35 +31,33 @@ class ReviewDataset(Dataset):
     
     def load_data_and_make_vectorizer(self):
         self.train_df = self.split_set()['train_data']
-        review_vectorizer = ReviewVectorizer()
+        self.review_vectorizer = ReviewVectorizer(review_df=self.dataset)
+        review_vocab_token, recommend_vocab = self.review_vectorizer.from_dataframe()
+        return (self.train_df, review_vocab_token)
     
+    @property
     def load_data_and_load_vectorizer(self):
-        pass
+        self.vectorizer = self.review_vectorizer.get_vectorizer()
+        return (self.train_df, self.vectorizer)
     
+    @property
     def load_only_vectorizer(self):
-        pass
+        return self.vectorizer 
     
     
     def generate_batches(self, batch_size: int):
-        pass
+        batch = dataloader(self.train_df, batch_size)
+        return batch 
     
     def get_num_batch(self):
         pass
+    
+    def __getitem__(self, index):
+        return super().__getitem__(index)
         
         
         
         
         
-        #indices = [self.add_token(token)]
         
         
-        
-        
-        
-
-
-
-
-
-
-
