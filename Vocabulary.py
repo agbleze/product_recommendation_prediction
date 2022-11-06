@@ -1,5 +1,5 @@
 
-from typing import List, dict
+from typing import List,Dict
 from torch.utils.data import DataLoader, Dataset
 import numpy as np
 import pandas as pd
@@ -7,7 +7,7 @@ import pandas as pd
 
 class ReviewVocabulary(object):
     """class for creating review vocabulary"""
-    def __init__(self, token_to_idx: dict = None):
+    def __init__(self, token_to_idx: Dict = None):
         if token_to_idx is None:
             self._token_to_idx = token_to_idx
             
