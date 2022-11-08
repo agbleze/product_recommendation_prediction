@@ -70,6 +70,19 @@ df_test, df_val = train_test_split(df_smallset, train_size=0.5, random_state=0)
 #%%
 from collections import Counter
 import string
+from torch.utils.data import DataLoader
+
+
+#%%
+df_loader= DataLoader(dataset=df, batch_size=100, shuffle=True, drop_last=True)
+
+#%%
+for item in df_loader:
+    for name, tensor in item.items():
+        print(item[name])
+        
+        
+
 
 
 
@@ -152,12 +165,14 @@ train_freq = FreqDist(df_train['reviews.text'])
 
 #%%
 text = 'Bought two for the. added comfort they. provide and. the wide straps. I am very pleased with my purchases and will probably order another two as they fit so well and provide full support.'
-
+token_list = []
 for word in text.split(" "):
     word = word.lower()
     if word[-1] in [',', '.']:
         word = word[:-1]
-    print(word)
+    token_list.append(word)
+
+print(token_list)
 
 
 #%%
@@ -172,6 +187,19 @@ print(wd)
 
 
 
+
+
+
+# %%
+
+0.9, 1.3, 2.2, 3.3, 5.0, 7.8, 13.3, 20.7
+
+0.4, 0.9, 1.1, 1.7, 2.8, 5.5, 7.4
+
+5, 2, 6, 11, 27, 19
+
+
+5, 7, 13, 24, 51, 70
 
 
 
