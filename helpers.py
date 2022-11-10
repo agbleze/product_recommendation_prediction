@@ -3,6 +3,7 @@ import os
 
 
 args = Namespace(
-    
+    review_csv = "",
+    vectorizer_filepath = ""
 )
 
