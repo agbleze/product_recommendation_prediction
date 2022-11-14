@@ -1,6 +1,7 @@
 from argparse import Namespace
 import os
 import torch
+import numpy as np
 
 
 args = Namespace(
@@ -43,7 +44,49 @@ def make_train_state(args):
         "model_filename": args.model_state_file      
     }
     
-def update_train_state(model, train_state):
+def update_train_state(args, model, train_state: dict):
+    if train_state['epoch_index'] == 0:
+        torch.save(model.state_dict(), train_state['model_filenae'])
+        train_state['stop_early'] = False
+        
+    # save model if performance improved
+    elif train_state['epoch_index'] >= 1:
+        loss_tm1, loss_t = train_state['val_loss'][-2:]
+        
+        # If loss worsened
+        if loss_t >= train_state['early_stopping_best_val']:
+            train_state["early_stopping_step"] += 1
+            
+        # loss decreased
+        else:
+            # save the best model
+            if loss_t < train_state["early_stopping_best_val"]:
+                torch.save(model.state_dict(), train_state["model_filename"])
+                
+            # reset early stopping step
+            train_state['early_stopping_step'] = 0
+            
+        # stop early?
+        train_state['stop_early'] =\
+            train_state['early_stopping_step'] >= args.early_stopping_criteria
+            
+    return train_state
+
+
+def compute_accuracy(y_pred, y_target):
+    _, y_pred_indices = y_pred.max(dim=1)
+    n_correct = torch.eq(y_pred_indices, y_target).sum().item()
+    return n_correct / len(y_pred_indices) * 100
+
+
+def set_seed_everywhere(seed, cuda):
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    if cuda:
+        torch.cuda.manual_seed_all()
+        
+        
+        
     
 
 
