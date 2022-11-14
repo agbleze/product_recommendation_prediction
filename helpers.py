@@ -29,8 +29,22 @@ args = Namespace(
 
 def make_train_state(args):
     return {
-        
+        "stop_early": False,
+        "early_stopping_step": 0,
+        "early_stopping_best_val": 1e8,
+        "learning_rate": args.learning_rate,
+        "epoch_index": 0,
+        "train_loss": [],
+        "train_acc": [],
+        "val_loss": [],
+        "val_acc": [],
+        "test_loss": -1,
+        "test_acc": -1,
+        "model_filename": args.model_state_file      
     }
+    
+def update_train_state(model, train_state):
+    
 
 
 
