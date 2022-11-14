@@ -91,10 +91,40 @@ def handle_dirs(dirpath):
         os.mkdir(dirpath)
         
         
-        
+def load_glove_from_file(glove_filepath):
+    word_to_index = {}
+    embeddings = []
+    
+    with open(glove_filepath) as fp:
+        for index, line in enumerate(fp):
+            line = line.split(" ") # each line word num1 num2 ...
+            word_to_index[line[0]] = index
+            embedding_i = np.array([float(val) for val in line[1:]])
+            embeddings.append(embedding_i)
+    return word_to_index, np.stack(embeddings)
     
 
+def make_embedding_matrix(glove_filepath, words):
+    """create embedding matrix from specific set of words
 
+    Args:
+        glove_filepath (str): filepath to the glove embeddings
+        words (list): list of words in the dataset
+    """
+    word_to_idx, glove_embedding = load_glove_from_file(glove_filepath)
+    embedding_size = glove_embedding.shape[1]
+    
+    final_embeddings = np.zeros((len(words), embedding_size))
+    
+    for i, word in enumerate(words):
+        if word in word_to_idx:
+            final_embeddings[i, :] = glove_embedding[word_to_idx[word]]
+        else:
+            embedding_i = torch.ones(1, embedding_size)
+            torch.nn.init.xavier_uniform_(embedding_i)
+            final_embeddings[i, :] = embedding_i
+            
+    return final_embeddings
 
 if not torch.cuda.isavailable:
     cuda = False
