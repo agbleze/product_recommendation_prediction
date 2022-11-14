@@ -27,8 +27,15 @@ args = Namespace(
     expand_filepath_to_save_dir=True
 )
 
+def make_train_state(args):
+    return {
+        
+    }
+
+
 
 if not torch.cuda.isavailable:
     cuda = False
 
 
+args.device = torch.device("cuda" if args.cuda else "cpu")
