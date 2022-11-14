@@ -85,6 +85,11 @@ def set_seed_everywhere(seed, cuda):
     if cuda:
         torch.cuda.manual_seed_all()
         
+
+def handle_dirs(dirpath):
+    if not os.path.exists(dirpath):
+        os.mkdir(dirpath)
+        
         
         
     
