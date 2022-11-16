@@ -1,3 +1,4 @@
+#%%
 from helpers import (Namespace,
                      load_glove_from_file,
                      set_seed_everywhere,
@@ -6,7 +7,8 @@ from helpers import (Namespace,
                      compute_accuracy, get_datapath
                      )
 
-import ReviewVectorizer, ReviewClassifier, ReviewDataset
+import ReviewVectorizer, ReviewClassifier
+from ReviewDataset import ReviewDataset
 
 review_dataset = ReviewDataset(dataset_path = get_datapath())
 
@@ -26,3 +28,5 @@ data, vectorizer = review_dataset.load_data_and_make_vectorizer()
 
 
 
+
+# %%
