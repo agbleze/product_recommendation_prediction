@@ -29,7 +29,7 @@ for token in preprocess_texts_to_tokens(sent):
 
 #%%
 class ReviewVectorizer:
-    def __init__(self, review_df):
+    def __init__(self, review_df: pd.DataFrame):
         self.review_df = review_df
         
         self.review_vocab = ReviewSequenceVocabulary()
