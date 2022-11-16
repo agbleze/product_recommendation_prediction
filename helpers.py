@@ -7,7 +7,7 @@ import numpy as np
 def get_datapath(data_foldername: str = "data", data_filename: str = "product_reviews.csv"):
     dirpath = os.getcwd()
     filepath = f"{data_foldername}/{data_filename}"
-    datapath = dirpath + filepath
+    datapath = dirpath + "/" + filepath
     return datapath
 
 #%%
@@ -137,7 +137,7 @@ def make_embedding_matrix(glove_filepath, words):
             
     return final_embeddings
 
-if not torch.cuda.isavailable:
+if not torch.cuda.is_available():
     cuda = False
 
 
