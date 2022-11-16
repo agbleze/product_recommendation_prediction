@@ -3,14 +3,25 @@ import os
 import torch
 import numpy as np
 
+#%%
+def get_datapath(data_foldername: str = "data", data_filename: str = "product_reviews.csv"):
+    dirpath = os.getcwd()
+    filepath = f"{data_foldername}/{data_filename}"
+    datapath = dirpath + filepath
+    return datapath
+
+#%%
+
+get_datapath()
+
 
 args = Namespace(
-    review_csv = "",
+    review_csv = get_datapath(),
     vectorizer_filepath = "",
     model_state_file = "",
     save_dir = "",
     glove_filepath = "",
-    use_glove=False,
+    use_glove=True,
     embedding_size=100,
     hidden_dim=100,
     num_channels=100,
@@ -133,26 +144,7 @@ if not torch.cuda.isavailable:
 args.device = torch.device("cuda" if args.cuda else "cpu")
 
 
-#%%
-import os
 
-#%%
-dirpath = os.getcwd()
-
-filepath = "data/product_reviews.csv"
-
-datapath = dirpath + filepath
-# %%
-
-def get_datapath(data_foldername: str = "data", data_filename: str = "product_reviews.csv"):
-    dirpath = os.getcwd()
-    filepath = f"{data_foldername}/{data_filename}"
-    datapath = dirpath + filepath
-    return datapath
-
-#%%
-
-get_datapath()
 
 
 
