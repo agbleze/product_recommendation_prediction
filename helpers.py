@@ -133,7 +133,34 @@ if not torch.cuda.isavailable:
 args.device = torch.device("cuda" if args.cuda else "cpu")
 
 
+#%%
+import os
+
+#%%
+dirpath = os.getcwd()
+
+filepath = "data/product_reviews.csv"
+
+datapath = dirpath + filepath
+# %%
+
+def get_datapath(data_foldername: str = "data", data_filename: str = "product_reviews.csv"):
+    dirpath = os.getcwd()
+    filepath = f"{data_foldername}/{data_filename}"
+    datapath = dirpath + filepath
+    return datapath
+
+#%%
+
+get_datapath()
 
 
 
 
+    
+    
+    
+    
+    
+    
+# %%
