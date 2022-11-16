@@ -8,9 +8,12 @@ from helpers import (Namespace,
 
 import ReviewVectorizer, ReviewClassifier, ReviewDataset
 
+review_dataset = ReviewDataset(dataset_path = get_datapath())
+
+review_trainset, review_testset, review_validateset = review_dataset.split_set()
 
 
-
+data, vectorizer = review_dataset.load_data_and_make_vectorizer()
 
 
 
