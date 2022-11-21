@@ -2,7 +2,7 @@ from torch.utils.data import dataloader, DataLoader, Dataset
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
-import ReviewVectorizer
+from ReviewVectorizer import ReviewVectorizer
 from typing import Dict, List, Optional
 
 #review_Vec = ReviewVectorizer(review_df=review_df)
