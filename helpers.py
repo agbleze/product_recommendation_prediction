@@ -14,7 +14,7 @@ def get_datapath(data_foldername: str = "data", data_filename: str = "product_re
 
 get_datapath()
 
-
+#%%
 args = Namespace(
     review_csv = get_datapath(),
     vectorizer_filepath = "",
