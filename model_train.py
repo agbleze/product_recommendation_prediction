@@ -7,11 +7,15 @@ from helpers import (Namespace,
                      compute_accuracy, get_datapath
                      )
 
-import ReviewVectorizer, ReviewClassifier
+from ReviewClassifier import Classifier
+from ReviewVectorizer import ReviewVectorizer
 from ReviewDataset import ReviewDataset
 
+
+#%%
 review_dataset = ReviewDataset(dataset_path = get_datapath())
 
+#%%
 review_trainset, review_testset, review_validateset = review_dataset.split_set()
 
 
