@@ -55,7 +55,7 @@ class ReviewVocabulary(object):
 class ReviewSequenceVocabulary(ReviewVocabulary):
     def __init__(self, token_to_idx = None, unk_token: str = "<UNK>", mask_token: str = "<MASK>",
                  begin_seq_token: str = "<BEGIN>", end_seq_token: str = "<END>"):
-        super(self, ReviewSequenceVocabulary).__init__(token_to_idx)
+        super(ReviewSequenceVocabulary, self).__init__(token_to_idx)
         
         self.mask_token = mask_token
         self.begin_seq_token = begin_seq_token
