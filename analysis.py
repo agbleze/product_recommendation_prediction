@@ -202,5 +202,10 @@ print(wd)
 5, 7, 13, 24, 51, 70
 
 
+"""
+Please describe in 2-3 sentences the machine learning project you most proud of. Please mention 
+model used, data size and number of features used in the final model. *
+"""
+
 
 # %%
