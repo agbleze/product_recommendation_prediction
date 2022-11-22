@@ -5,13 +5,16 @@ import numpy as np
 import pandas as pd
 
 
+#__metaclass__ = type
 class ReviewVocabulary(object):
     """class for creating review vocabulary"""
     def __init__(self, token_to_idx: Dict = None):
         if token_to_idx is None:
-            self._token_to_idx = token_to_idx
+            token_to_idx = {}
+        self._token_to_idx = token_to_idx
             
-        self._idx_to_token = {idx: token for token, idx in token_to_idx}
+        self._idx_to_token = {idx: token 
+                              for token, idx in self._token_to_idx.items()}
         
         
     def to_serializable(self):
