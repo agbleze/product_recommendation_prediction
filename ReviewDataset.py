@@ -7,7 +7,7 @@ from typing import Dict, List, Optional
 
 #review_Vec = ReviewVectorizer(review_df=review_df)
 
-class ReviewDataset(Dataset):
+class ReviewDataset(Dataset, ReviewVectorizer):
     def __init__(self, dataset_path: str):
         
         self.dataset = pd.read_csv(dataset_path)
@@ -36,7 +36,7 @@ class ReviewDataset(Dataset):
         self.datasplit_size = len(self.datasplit)
         return (self.datasplit, self.datasplit_size)
            
-    
+    @property
     def load_data_and_make_vectorizer(self):
         self.train_df = self.split_set()['train_data']
         #self.review_vectorizer = ReviewVectorizer(review_df=self.dataset)
