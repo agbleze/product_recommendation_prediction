@@ -15,12 +15,15 @@ def get_datapath(data_foldername: str = "data", data_filename: str = "product_re
 get_datapath()
 
 #%%
+glove_dir = get_datapath(data_foldername='glove', data_filename='glove.6B.100.txt')
+
+#%%
 args = Namespace(
     review_csv = get_datapath(),
-    vectorizer_filepath = "",
-    model_state_file = "",
-    save_dir = "",
-    glove_filepath = "",
+    vectorizer_file = "vectorizer.json",
+    model_state_file = "model.pth",
+    save_dir = "model_storage",
+    glove_filepath = glove_dir,
     use_glove=True,
     embedding_size=100,
     hidden_dim=100,
@@ -36,7 +39,7 @@ args = Namespace(
     cuda = True,
     catch_keyboard_interrupt=True,
     reload_from_files=False,
-    expand_filepath_to_save_dir=True
+    expand_filepaths_to_save_dir=True
 )
 
 def make_train_state(args):
